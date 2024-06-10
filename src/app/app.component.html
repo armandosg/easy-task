@@ -1,0 +1,41 @@
+@if (showNewUserDialog) {
+<app-new-user (close)="onCloseNewUserDialog()" (add)="onAddUser($event)" />
+}
+
+@if (showDeleteUserDialog && selectedUserId && selectedUser) {
+<app-delete-user
+  (cancel)="onCloseDeleteUserDialog()"
+  (confirm)="onConfirmDeleteUser()"
+  [userId]="selectedUserId"
+  [name]="selectedUser.name"
+/>
+}
+
+<app-header />
+
+<main>
+  <div>
+    <button type="button" (click)="onStartNewUser()">Add user</button>
+    <ul id="users">
+      @for (user of users; track user.id) {
+      <li>
+        <app-user
+          [user]="user"
+          [selected]="user.id === selectedUserId"
+          (select)="onSelectUser($event)"
+        />
+      </li>
+      }
+    </ul>
+  </div>
+
+  @if (selectedUser) {
+  <app-tasks
+    [userId]="selectedUser.id"
+    [name]="selectedUser.name"
+    (delete)="(onDeleteUser())"
+  />
+  } @else {
+  <p id="fallback">Select a user to see their tasks!</p>
+  }
+</main>

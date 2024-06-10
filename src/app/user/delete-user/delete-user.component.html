@@ -1,0 +1,14 @@
+<div class="backdrop" (click)="onCancel()"></div>
+<dialog open>
+  <h2>Delete User</h2>
+  <form>
+    <p>
+      Are you sure you want to delete the user "{{ name }}"?
+    </p>
+
+    <p class="actions">
+      <button type="button" (click)="onCancel()">Cancel</button>
+      <button type="button" (click)="onSubmit()" class="confirm-button">Yes</button>
+    </p>
+  </form>
+</dialog>
